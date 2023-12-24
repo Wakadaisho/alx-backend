@@ -5,7 +5,14 @@ Class to paginate a database of popular baby names.
 
 import csv
 import math
-from typing import List
+from typing import List, Tuple
+
+
+def index_range(page: int, page_size: int) -> Tuple[int, int]:
+    """Get index range based on page and page_size"""
+    start: int = (page - 1) * page_size
+    end: int = start + page_size
+    return (start, end)
 
 
 class Server:
@@ -29,12 +36,11 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """Get index range based on page and page_size"""
-        start: int = (page - 1) * page_size
-        end: int = start + page_size
-
         assert isinstance(page, int)
         assert isinstance(page_size, int)
         assert page > 0
         assert page_size > 0
+
+        start, end = index_range(page, page_size)
 
         return self.dataset()[start:end]
