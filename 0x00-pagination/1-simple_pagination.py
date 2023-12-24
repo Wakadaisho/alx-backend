@@ -32,10 +32,9 @@ class Server:
         start: int = (page - 1) * page_size
         end: int = start + page_size
 
-        if not (isinstance(page, int) and isinstance(page_size, int)):
-            raise AssertionError
-
-        if (page <= 0 or page_size <= 0):
-            raise AssertionError
+        assert isinstance(page, int)
+        assert isinstance(page_size, int)
+        assert page > 0
+        assert page_size > 0
 
         return self.dataset()[start:end]
